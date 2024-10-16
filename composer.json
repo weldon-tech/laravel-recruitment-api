@@ -3,7 +3,7 @@
     "description": "The package contains migrations, routes, controllers for recruitment api.",
     "type": "project",
     "require-dev": {
-        "laravel/pint": "1.18.1"
+        "laravel/pint": "^1.0"
     },
     "license": "MIT",
     "extra": {
