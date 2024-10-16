@@ -1,9 +1,11 @@
 <?php
 
+use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class {
+return new class extends Migration
+{
     public function up(): void
     {
         Schema::create('candidates', function (Blueprint $table) {
@@ -31,7 +33,7 @@ return new class {
 
             $table->string('additional_phone_number')->nullable();
 
-            $table->string('about',40960);
+            $table->string('about', 4096);
         });
     }
 

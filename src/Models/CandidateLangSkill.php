@@ -2,6 +2,11 @@
 
 namespace Juraboyev\LaravelRecruitmentApi\Models;
 
-class CandidateLangSkill
+use Illuminate\Database\Eloquent\Model;
+
+class CandidateLangSkill extends Model
 {
+    protected $guarded = [];
+
+    public $timestamps = false;
 }
