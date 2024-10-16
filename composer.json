@@ -2,8 +2,8 @@
     "name": "juraboyev/laravel-recruitment-api",
     "description": "The package contains migrations, routes, controllers for recruitment api.",
     "type": "project",
-    "require-dev": {
-        "laravel/pint": "^1.0"
+    "require": {
+        "php": "^7.4|^8.1"
     },
     "license": "MIT",
     "extra": {
@@ -24,8 +24,5 @@
             "email": "fifa420114@gmail.com"
         }
     ],
-    "minimum-stability": "dev",
-    "require": {
-        "php": "^8.1"
-    }
+    "minimum-stability": "dev"
 }
