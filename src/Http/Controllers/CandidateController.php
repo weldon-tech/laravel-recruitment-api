@@ -11,7 +11,7 @@ class CandidateController
 
         $candidate = new \Juraboyev\LaravelRecruitmentApi\Candidate\Models\Candidate($request->all());
 
-        $candidate->store();
+        return  $candidate->store();
 
     }
 }

@@ -3,6 +3,7 @@
 namespace Juraboyev\LaravelRecruitmentApi\Candidate\Models;
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Response;
 use Juraboyev\LaravelRecruitmentApi\Models\CandidateAddress;
 use Juraboyev\LaravelRecruitmentApi\Models\CandidateAdvertisingSource;
 use Juraboyev\LaravelRecruitmentApi\Models\CandidateDetail;
@@ -76,7 +77,6 @@ class Candidate
 
     public function store()
     {
-//        dd($this->otherQuestions);
         DB::beginTransaction();
         try {
             $this->storeCandidate();
@@ -100,6 +100,8 @@ class Candidate
             $this->storeCandidateSelectedPosition();
 
             DB::commit();
+
+            return Response::json(['message' => 'Ma\'lumot saqlandi']);
 
         } catch (\Throwable $th) {
             DB::rollBack();
