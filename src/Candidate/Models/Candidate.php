@@ -170,7 +170,7 @@ class Candidate
         CandidateDetail::query()->create([
             'candidate_id' => $this->id,
             'has_bad_habits' => $this->additionalQuestions->hasBadHabits,
-            'how_bad_habits' => $this->additionalQuestions->howBadHabits,
+            'how_bad_habits' => $this->additionalQuestions->howBadHabits ?? '',
             'asked_salary' => $this->otherQuestions->salary,
             'chronic_diseases' => $this->otherQuestions->chronicDiseases,
             'is_pregnant' => $this->otherQuestions->pregnant,
@@ -200,8 +200,8 @@ class Candidate
             'previous_organization' => $this->workExperience->previousOrganization,
             'reason_for_dismissal' => $this->workExperience->reasonForDismissal,
             'position' => $this->workExperience->position,
-            'start' => date('Y-m-d', strtotime($this->workExperience->periodEmployment[0])),
-            'end' => isset($this->workExperience->periodEmployment[1]) ? date('Y-m-d', strtotime($this->workExperience->periodEmployment[1])) : null,
+            'start' => $this->workExperience->periodEmployment[0],
+            'end' => $this->workExperience->periodEmployment[1] ?? null,
         ]);
     }
 

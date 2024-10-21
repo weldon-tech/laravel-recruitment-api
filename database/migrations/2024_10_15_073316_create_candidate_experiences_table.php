@@ -19,9 +19,9 @@ return new class extends Migration
 
             $table->string('reason_for_dismissal')->nullable();
 
-            $table->date('start');
+            $table->integer('start');
 
-            $table->date('end')->nullable();
+            $table->integer('end')->nullable();
         });
     }
 

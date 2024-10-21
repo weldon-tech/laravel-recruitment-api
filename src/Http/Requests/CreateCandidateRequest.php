@@ -61,11 +61,11 @@ class CreateCandidateRequest extends FormRequest
             'work_experience.previous_organization' => 'nullable|string|max:255',
             'work_experience.position' => 'nullable|string|max:255',
             'work_experience.period_employment' => 'nullable|array|min:2|max:2',
-            'work_experience.period_employment.*' => 'nullable|date_format:Y-m-d',
+            'work_experience.period_employment.*' => 'nullable|integer',
             'work_experience.reason_for_dismissal' => 'nullable|string|max:255',
 
             'additional_questions.has_bad_habits' => 'required|boolean',
-            'additional_questions.how_bad_habits' => 'required|string|max:255',
+            'additional_questions.how_bad_habits' => 'required_if:additional_questions.has_bad_habits,true',
 
             'select_positions' => 'required|array',
             'select_positions.*' => 'required|string|max:255',
@@ -184,8 +184,8 @@ class CreateCandidateRequest extends FormRequest
 
             'additional_questions.has_bad_habits.required' => 'Yomon odatlar mavjudligi kiritilishi shart.',
             'additional_questions.has_bad_habits.boolean' => 'Yomon odatlar mavjudligi to\'g\'ri yoki noto\'g\'ri bo\'lishi kerak.',
+
             'additional_questions.how_bad_habits.required' => 'Yomon odatlar qandayligi haqida ma\'lumot kiritilishi shart.',
-            'additional_questions.how_bad_habits.string' => 'Yomon odatlar qandayligi matn bo\'lishi kerak.',
             'additional_questions.how_bad_habits.max' => 'Yomon odatlar qandayligi 255 belgidan oshmasligi kerak.',
 
             'select_positions.required' => 'Tanlangan lavozimlar kiritilishi shart.',

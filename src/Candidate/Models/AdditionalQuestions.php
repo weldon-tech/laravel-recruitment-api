@@ -12,7 +12,7 @@ class AdditionalQuestions
         $data = []
     ) {
         $this->hasBadHabits = $data['has_bad_habits'];
-        $this->howBadHabits = $data['how_bad_habits'];
+        $this->howBadHabits = $data['how_bad_habits'] ?? '';
     }
 
     public function getHasBadHabits(): bool
