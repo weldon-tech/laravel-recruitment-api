@@ -4,6 +4,7 @@ namespace Juraboyev\LaravelRecruitmentApi\Candidate\Models;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Storage;
 use Juraboyev\LaravelRecruitmentApi\Models\CandidateAddress;
 use Juraboyev\LaravelRecruitmentApi\Models\CandidateAdvertisingSource;
 use Juraboyev\LaravelRecruitmentApi\Models\CandidateDetail;
@@ -111,7 +112,19 @@ class Candidate
 
     public function storeCandidate()
     {
-        $url = '';
+        // Remove the Base64 header from the string
+        $base64Image = substr($this->personal->photo, strpos($this->personal->photo, ',') + 1);
+
+        $organizationName = config('app.storage_path');
+
+        // Decode the Base64 string
+        $image = base64_decode($base64Image);
+
+        $extension = explode('/', explode(':', substr($this->personal->photo, 0, strpos($this->personal->photo, ';')))[1])[1];
+
+        $fileName = $organizationName.'/'.uniqid() . '.' . $extension;
+
+        Storage::disk(config('recruitment.storage.disk'))->put($fileName,$image);
 
         $candidate = \Juraboyev\LaravelRecruitmentApi\Models\Candidate::query()
             ->create([
@@ -120,7 +133,7 @@ class Candidate
                 'middle_name' => $this->personal->middleName,
                 'full_name' => $this->personal->lastName.' '.$this->personal->firstName.' '.$this->personal->middleName,
                 'born_date' => date('Y-m-d', strtotime($this->personal->bornDay)),
-                'photo_url' => $url,
+                'photo_url' => $fileName,
                 'citizenship' => $this->additional->citizenship,
                 'nation' => $this->additional->nation,
                 'phone_number' => $this->additional->phoneNumber,

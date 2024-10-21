@@ -12,7 +12,6 @@ class CandidateController
 {
     public function createCandidate(CreateCandidateRequest $request)
     {
-
         $candidate = new \Juraboyev\LaravelRecruitmentApi\Candidate\Models\Candidate($request->all());
 
         return $candidate->store();

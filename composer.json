@@ -3,7 +3,8 @@
     "description": "The package contains migrations, routes, controllers for recruitment api.",
     "type": "project",
     "require": {
-        "php": "^7.4|^8.1"
+        "php": "^7.4|^8.1",
+        "mews/captcha": "^3.3"
     },
     "license": "MIT",
     "extra": {
