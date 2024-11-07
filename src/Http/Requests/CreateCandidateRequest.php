@@ -22,8 +22,8 @@ class CreateCandidateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'key'=>['required','string'],
-            'captcha' => ['required', 'captcha_api:'.$this->get('key').',math'],
+//            'key'=>['required','string'],
+//            'captcha' => ['required', 'captcha_api:'.$this->get('key').',math'],
 
             'personal.photo' => 'required',
             'personal.first_name' => 'required|string|max:255',
@@ -49,6 +49,7 @@ class CreateCandidateRequest extends FormRequest
             'study_period.admission_year' => 'required|integer|min:1900|max:'.date('Y'),
             'study_period.graduation_year' => 'required|integer|min:1900|max:'.date('Y'),
             'study_period.field' => 'required|string|max:255',
+            'study_period.education_level' => 'required|string|max:255',
 
             'additional_skills_languages' => 'required|array',
             'additional_skills_languages.*.language' => 'required|string|max:255',
@@ -60,7 +61,7 @@ class CreateCandidateRequest extends FormRequest
 
             'work_experience.previous_organization' => 'nullable|string|max:255',
             'work_experience.position' => 'nullable|string|max:255',
-            'work_experience.period_employment' => 'nullable|array|min:2|max:2',
+            'work_experience.period_employment' => 'nullable|array|min:1|max:2',
             'work_experience.period_employment.*' => 'nullable|integer',
             'work_experience.reason_for_dismissal' => 'nullable|string|max:255',
 

@@ -2,6 +2,12 @@
 
 return [
 
+    'auth' => [
+
+        'middleware' => [],
+
+    ],
+
     'captcha' => [
 
         'default' => env('RECRUITMENT_CAPTCHA', 'math')
@@ -9,7 +15,9 @@ return [
     ],
 
     'storage'=>[
+
         'disk'=>'recruitment',
-    ]
+
+    ],
 
 ];

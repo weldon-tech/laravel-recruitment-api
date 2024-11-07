@@ -12,3 +12,9 @@ Route::middleware('api')->prefix('api')->group(function () {
     Route::get('/village-list', [CandidateController::class, 'getVillage']);
 
 });
+
+
+Route::middleware(config('recruitment.auth.middleware'))->prefix('api')->group(function () {
+    Route::get('get-candidate',[CandidateController::class, 'getCandidates']);
+    Route::get('get-candidate/{Candidate}',[CandidateController::class, 'getCandidateDetails']);
+});

@@ -9,4 +9,9 @@ class CandidateExperience extends Model
     protected $guarded = [];
 
     public $timestamps = false;
+
+    protected $casts = [
+        'start' => 'date:d.m.Y',
+        'end' => 'date:d.m.Y',
+    ];
 }

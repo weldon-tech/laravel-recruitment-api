@@ -139,6 +139,7 @@ class Candidate
                 'phone_number' => $this->additional->phoneNumber,
                 'additional_phone_number' => $this->additional->additionalNumber,
                 'about' => $this->otherQuestions->aboutYourSelf,
+                'education_level'=>$this->studyPeriod->educationLevel,
             ]);
 
         $this->id = $candidate->id;

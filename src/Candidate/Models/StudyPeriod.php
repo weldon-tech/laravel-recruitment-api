@@ -14,6 +14,8 @@ class StudyPeriod
 
     public string $field;
 
+    public string $educationLevel;
+
     public function __construct(
         $data = []
     ) {
@@ -22,6 +24,7 @@ class StudyPeriod
         $this->admissionYear = $data['admission_year'];
         $this->graduationYear = $data['graduation_year'];
         $this->field = $data['field'];
+        $this->educationLevel = $data['education_level'];
     }
 
     public function getEducationalInstitution(): string
@@ -47,5 +50,10 @@ class StudyPeriod
     public function getField(): string
     {
         return $this->field;
+    }
+
+    public function getEducationLevel(): string{
+
+        return $this->educationLevel;
     }
 }
