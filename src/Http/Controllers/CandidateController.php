@@ -62,7 +62,7 @@ class CandidateController
     public function getCandidates(Request $request)
     {
         $dates =  $request->get('dates',false);
-        $bornDate = $request->date('born_date')?->format('Y-m-d');
+        $age = $request->get('age',['from'=>null,'to'=>null]);
         $provinceId = $request->get('province_id', null);
         $regionId = $request->get('region_id', null);
         $villageId = $request->get('village_id', null);
@@ -70,21 +70,27 @@ class CandidateController
         $educationLevel = $request->get('education_level',false);
         $startDate = $dates ? date('Y-m-d', strtotime($dates[0])) : null;
         $endDate = $dates ? date('Y-m-d', strtotime($dates[1])) : null;
+        $fromAgeDate = $age['from'] ? date('Y-m-d', strtotime('-'.$age['from'].'year')) : 0;
+        $toAgeDate = $age['to'] ? date('Y-m-d', strtotime('-'.$age['to'].'year')) : 0;
         $Candidates = Candidate::query()
+            ->join('candidate_addresses','candidate_addresses.candidate_id','=','candidates.id')
+            ->select(
+             'candidates.*'
+            )
             ->with([
-                'address'=>fn($query)=>$query->select('candidate_id','province_id','region_id','village_id'),
                 'address.province'=>fn($query)=>$query->select('id', 'name'),
                 'address.region'=>fn($query)=>$query->select('id', 'name'),
                 'address.village'=>fn($query)=>$query->select('id', 'name'),
             ])
-            ->when($startDate,fn($q) => $q->whereDate('created_at','>=', $startDate))
-            ->when($endDate,fn($q) => $q->whereDate('created_at','<=', $endDate))
-            ->when($bornDate,fn($q) => $q->whereDate('born_date', $bornDate))
-            ->when($educationLevel,fn($q) => $q->where('education_level',$educationLevel))
-            ->when($provinceId,fn($q) => $q->where('province_id', $provinceId))
-            ->when($regionId,fn($q) => $q->where('region_id', $regionId))
-            ->when($villageId,fn($q) => $q->where('village_id', $villageId))
-            ->orderBy('id','DESC')
+            ->when($fromAgeDate, fn ($query) => $query->where('candidates.born_date', '<=', $fromAgeDate))
+            ->when($toAgeDate, fn ($query) => $query->where('candidates.born_date', '>=', $toAgeDate))
+            ->when($startDate,fn($q) => $q->whereDate('candidates.created_at','>=', $startDate))
+            ->when($endDate,fn($q) => $q->whereDate('candidates.created_at','<=', $endDate))
+            ->when($educationLevel,fn($q) => $q->where('candidates.education_level',$educationLevel))
+            ->when($provinceId,fn($q) => $q->where('candidate_addresses.province_id', $provinceId))
+            ->when($regionId,fn($q) => $q->where('candidate_addresses.region_id', $regionId))
+            ->when($villageId,fn($q) => $q->where('candidate_addresses.village_id', $villageId))
+            ->orderBy('candidates.id','DESC')
             ->simplePaginate($limit);
 
         return CandidateResourceCollection::collection($Candidates);
