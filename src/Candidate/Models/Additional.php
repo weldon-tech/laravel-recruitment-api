@@ -18,7 +18,7 @@ class Additional
 
     public string $phoneNumber;
 
-    public string $additionalNumber;
+    public string|null $additionalNumber;
 
     public function __construct(
         $data = []
@@ -30,7 +30,7 @@ class Additional
         $this->mca = $data['mca'];
         $this->address = $data['address'];
         $this->phoneNumber = $data['phone_number'];
-        $this->additionalNumber = $data['additional_number'];
+        $this->additionalNumber = $data['additional_number']?? null;
     }
 
     public function getCitizenship(): string

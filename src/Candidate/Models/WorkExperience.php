@@ -4,14 +4,16 @@ namespace Juraboyev\LaravelRecruitmentApi\Candidate\Models;
 
 class WorkExperience
 {
-    public string $previousOrganization;
+    public string|null $previousOrganization;
 
-    public string $position;
+    public string|null $position;
 
     /** @var string[] */
-    public array $periodEmployment;
+    public array|null $periodEmployment;
 
-    public string $reasonForDismissal;
+    public string|null $reasonForDismissal;
+
+    public  bool $hasWorkPlace;
 
     /**
      * @param  string[]  $periodEmployment
@@ -19,10 +21,11 @@ class WorkExperience
     public function __construct(
         $data = []
     ) {
-        $this->previousOrganization = $data['previous_organization'];
+        $this->previousOrganization = $data['previous_organization'] ?? null;
         $this->position = $data['position'];
         $this->periodEmployment = $data['period_employment'];
         $this->reasonForDismissal = $data['reason_for_dismissal'];
+        $this->hasWorkPlace = $data['has_work_place'];
     }
 
     public function getPreviousOrganization(): string
@@ -46,5 +49,9 @@ class WorkExperience
     public function getReasonForDismissal(): string
     {
         return $this->reasonForDismissal;
+    }
+
+    public  function hasWorkPlace(): bool{
+        return $this->hasWorkPlace;
     }
 }

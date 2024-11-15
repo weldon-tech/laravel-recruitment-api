@@ -25,6 +25,7 @@ class CreateCandidateRequest extends FormRequest
 //            'key'=>['required','string'],
 //            'captcha' => ['required', 'captcha_api:'.$this->get('key').',math'],
 
+            'chat_id'=>'nullable',
             'personal.photo' => 'required',
             'personal.first_name' => 'required|string|max:255',
             'personal.last_name' => 'required|string|max:255',
@@ -38,11 +39,11 @@ class CreateCandidateRequest extends FormRequest
             'additional.mca' => 'required|integer',
             'additional.address' => 'required|string|max:255',
             'additional.phone_number' => 'required|string|regex:/^\+998\d{9}$/',
-            'additional.additional_number' => 'required|string|regex:/^\+998\d{9}$/',
+            'additional.additional_number' => 'nullable|string|regex:/^\+998\d{9}$/',
 
             'family_situation.family_situation' => 'required|in:MARRIED,NOT_MARRIED',
             'family_situation.has_children' => 'required|boolean',
-            'family_situation.children' => 'required_if:family_situation.has_children,true|integer|min:1',
+            'family_situation.children' => 'required_if:family_situation.has_children,true',
 
             'study_period.educational_institution' => 'required|string|max:255',
             'study_period.direction' => 'required|string|max:255',
@@ -59,9 +60,10 @@ class CreateCandidateRequest extends FormRequest
             'additional_skills_others.*.skill_name' => 'required|string|max:255',
             'additional_skills_others.*.level' => 'required|in:SATISFACTORY,GOOD,BEST',
 
-            'work_experience.previous_organization' => 'nullable|string|max:255',
-            'work_experience.position' => 'nullable|string|max:255',
-            'work_experience.period_employment' => 'nullable|array|min:1|max:2',
+            'work_experience.has_work_place'=> 'required|boolean',
+            'work_experience.previous_organization' => 'required_if:work_experience.has_work_place,true|max:255',
+            'work_experience.position' => ['required_if:work_experience.has_work_place,true','max:255'],
+            'work_experience.period_employment' => 'required_if:work_experience.has_work_place,true',
             'work_experience.period_employment.*' => 'nullable|integer',
             'work_experience.reason_for_dismissal' => 'nullable|string|max:255',
 
@@ -122,7 +124,6 @@ class CreateCandidateRequest extends FormRequest
             'additional.phone_number.required' => 'Telefon raqami kiritilishi shart.',
             'additional.phone_number.string' => 'Telefon raqami matn bo\'lishi kerak.',
             'additional.phone_number.regex' => 'Telefon raqami to\'g\'ri formatda emas (masalan, +998xxxxxxxxx).',
-            'additional.additional_number.required' => 'Qo\'shimcha raqam kiritilishi shart.',
             'additional.additional_number.string' => 'Qo\'shimcha raqam matn bo\'lishi kerak.',
             'additional.additional_number.regex' => 'Qo\'shimcha raqam to\'g\'ri formatda emas (masalan, +998xxxxxxxxx).',
 
@@ -131,8 +132,6 @@ class CreateCandidateRequest extends FormRequest
             'family_situation.has_children.required' => 'Bolalar borligi haqida ma\'lumot kiritilishi shart.',
             'family_situation.has_children.boolean' => 'Bolalar borligi to\'g\'ri yoki noto\'g\'ri bo\'lishi kerak.',
             'family_situation.children.required_if' => 'Agar bolalar bo\'lsa, ularni soni kiritilishi shart.',
-            'family_situation.children.integer' => 'Bolalar soni butun son bo\'lishi kerak.',
-            'family_situation.children.min' => 'Bolalar soni kamida 1 bo\'lishi kerak.',
 
             'study_period.educational_institution.required' => 'Ta\'lim muassasasi kiritilishi shart.',
             'study_period.educational_institution.string' => 'Ta\'lim muassasasi matn bo\'lishi kerak.',
@@ -168,13 +167,12 @@ class CreateCandidateRequest extends FormRequest
             'additional_skills_others.*.level.required' => 'Ko\'nikma darajasi kiritilishi shart.',
             'additional_skills_others.*.level.in' => 'Ko\'nikma darajasi to\'g\'ri emas (SATISFACTORY, GOOD, BEST).',
 
-            'work_experience.previous_organization.required' => 'Avvalgi tashkilot kiritilishi shart.',
-            'work_experience.previous_organization.string' => 'Avvalgi tashkilot matn bo\'lishi kerak.',
+            'work_experience.has_work_place.required' => 'Oldin ishlagan yoki ishlamaganingizni belgilang.',
+            'work_experience.previous_organization.required_if' => 'Avvalgi tashkilot kiritilishi shart.',
             'work_experience.previous_organization.max' => 'Avvalgi tashkilot 255 belgidan oshmasligi kerak.',
-            'work_experience.position.required' => 'Lavozim kiritilishi shart.',
-            'work_experience.position.string' => 'Lavozim matn bo\'lishi kerak.',
+            'work_experience.position.required_if' => 'Lavozim kiritilishi shart.',
             'work_experience.position.max' => 'Lavozim 255 belgidan oshmasligi kerak.',
-            'work_experience.period_employment.required' => 'Ishga qabul davri kiritilishi shart.',
+            'work_experience.period_employment.required_if' => 'Ishga qabul davri kiritilishi shart.',
             'work_experience.period_employment.array' => 'Ishga qabul davri massiv bo\'lishi kerak.',
             'work_experience.period_employment.min' => 'Ishga qabul davri kamida 1 ta bo\'lishi kerak.',
             'work_experience.period_employment.*.required' => 'Ishga qabul davri kiritilishi shart.',
@@ -186,7 +184,7 @@ class CreateCandidateRequest extends FormRequest
             'additional_questions.has_bad_habits.required' => 'Yomon odatlar mavjudligi kiritilishi shart.',
             'additional_questions.has_bad_habits.boolean' => 'Yomon odatlar mavjudligi to\'g\'ri yoki noto\'g\'ri bo\'lishi kerak.',
 
-            'additional_questions.how_bad_habits.required' => 'Yomon odatlar qandayligi haqida ma\'lumot kiritilishi shart.',
+            'additional_questions.how_bad_habits.required_if' => 'Yomon odatlar qandayligi haqida ma\'lumot kiritilishi shart.',
             'additional_questions.how_bad_habits.max' => 'Yomon odatlar qandayligi 255 belgidan oshmasligi kerak.',
 
             'select_positions.required' => 'Tanlangan lavozimlar kiritilishi shart.',

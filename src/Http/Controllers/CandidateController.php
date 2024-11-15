@@ -3,6 +3,7 @@
 namespace Juraboyev\LaravelRecruitmentApi\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Response;
 use Juraboyev\LaravelRecruitmentApi\Http\Requests\CreateCandidateRequest;
 use Juraboyev\LaravelRecruitmentApi\Http\Resources\CandidateResourceCollection;
@@ -60,14 +61,15 @@ class CandidateController
 
     public function getCandidates(Request $request)
     {
-        $date =  $request->date('date')?->format('Y-m-d');
+        $dates =  $request->get('dates',false);
         $bornDate = $request->date('born_date')?->format('Y-m-d');
         $provinceId = $request->get('province_id', null);
         $regionId = $request->get('region_id', null);
         $villageId = $request->get('village_id', null);
         $limit = $request->get('limit');
         $educationLevel = $request->get('education_level',false);
-
+        $startDate = $dates ? date('Y-m-d', strtotime($dates[0])) : null;
+        $endDate = $dates ? date('Y-m-d', strtotime($dates[1])) : null;
         $Candidates = Candidate::query()
             ->with([
                 'address'=>fn($query)=>$query->select('candidate_id','province_id','region_id','village_id'),
@@ -75,7 +77,8 @@ class CandidateController
                 'address.region'=>fn($query)=>$query->select('id', 'name'),
                 'address.village'=>fn($query)=>$query->select('id', 'name'),
             ])
-            ->when($date,fn($q) => $q->whereDate('created_at', $date))
+            ->when($startDate,fn($q) => $q->whereDate('created_at','>=', $startDate))
+            ->when($endDate,fn($q) => $q->whereDate('created_at','<=', $endDate))
             ->when($bornDate,fn($q) => $q->whereDate('born_date', $bornDate))
             ->when($educationLevel,fn($q) => $q->where('education_level',$educationLevel))
             ->when($provinceId,fn($q) => $q->where('province_id', $provinceId))

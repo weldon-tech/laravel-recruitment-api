@@ -50,6 +50,8 @@ class Candidate
 
     public array $data;
 
+    public string|null $chatId;
+
     public function __construct(array $data)
     {
         $this->personal = new Personal($data['personal']);
@@ -74,6 +76,7 @@ class Candidate
 
         $this->selectPositions = $data['select_positions'];
         $this->advertisingSources = $data['advertising_sources'];
+        $this->chatId = $data['chat_id'] ?? null;
     }
 
     public function store()
@@ -195,15 +198,16 @@ class Candidate
 
     public function storeCandidateExperience(): void
     {
-
-        CandidateExperience::query()->create([
-            'candidate_id' => $this->id,
-            'previous_organization' => $this->workExperience->previousOrganization,
-            'reason_for_dismissal' => $this->workExperience->reasonForDismissal,
-            'position' => $this->workExperience->position,
-            'start' => $this->workExperience->periodEmployment[0],
-            'end' => $this->workExperience->periodEmployment[1] ?? null,
-        ]);
+        if ($this->workExperience->hasWorkPlace){
+            CandidateExperience::query()->create([
+                'candidate_id' => $this->id,
+                'previous_organization' => $this->workExperience->previousOrganization,
+                'reason_for_dismissal' => $this->workExperience->reasonForDismissal?? '',
+                'position' => $this->workExperience->position,
+                'start' => $this->workExperience->periodEmployment[0],
+                'end' => $this->workExperience->periodEmployment[1] ?? null,
+            ]);
+        }
     }
 
     public function storeCandidateFamilyMembers(): void
