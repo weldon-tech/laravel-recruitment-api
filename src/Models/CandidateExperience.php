@@ -10,8 +10,4 @@ class CandidateExperience extends Model
 
     public $timestamps = false;
 
-    protected $casts = [
-        'start' => 'date:d.m.Y',
-        'end' => 'date:d.m.Y',
-    ];
 }

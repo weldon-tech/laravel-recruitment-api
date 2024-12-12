@@ -22,8 +22,8 @@ class CreateCandidateRequest extends FormRequest
     public function rules(): array
     {
         return [
-//            'key'=>['required','string'],
-//            'captcha' => ['required', 'captcha_api:'.$this->get('key').',math'],
+            'key'=>['required','string'],
+            'captcha' => ['required', 'captcha_api:'.$this->get('key').',math'],
 
             'chat_id'=>'nullable',
             'personal.photo' => 'required',
