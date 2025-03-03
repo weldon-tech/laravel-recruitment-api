@@ -1,6 +1,6 @@
 <?php
 
-namespace Juraboyev\LaravelRecruitmentApi\Http\Requests;
+namespace Weldon\LaravelRecruitmentApi\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 

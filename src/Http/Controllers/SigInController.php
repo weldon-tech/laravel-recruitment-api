@@ -1,6 +1,6 @@
 <?php
 
-namespace Juraboyev\LaravelRecruitmentApi\Http\Controllers;
+namespace Weldon\LaravelRecruitmentApi\Http\Controllers;
 
 use Mews\Captcha\Captcha;
 

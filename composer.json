@@ -1,5 +1,5 @@
 {
-    "name": "juraboyev/laravel-recruitment-api",
+    "name": "weldon/laravel-recruitment-api",
     "description": "The package contains migrations, routes, controllers for recruitment api.",
     "type": "project",
     "require": {
@@ -12,19 +12,19 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Juraboyev\\LaravelRecruitmentApi\\RecruitmentApiServiceProvider"
+                "Weldon\\LaravelRecruitmentApi\\RecruitmentApiServiceProvider"
             ]
         }
     },
     "autoload": {
         "psr-4": {
-            "Juraboyev\\LaravelRecruitmentApi\\": "src/"
+            "Weldon\\LaravelRecruitmentApi\\": "src/"
         }
     },
     "authors": [
         {
-            "name": "Xusanboy Juraboyev",
-            "email": "fifa420114@gmail.com"
+            "name": "Weldon",
+            "email": "info.weldonuz@gmail.com"
         }
     ],
     "minimum-stability": "stable"

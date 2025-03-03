@@ -1,22 +1,22 @@
 <?php
 
-namespace Juraboyev\LaravelRecruitmentApi\Http\Controllers;
+namespace Weldon\LaravelRecruitmentApi\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Response;
-use Juraboyev\LaravelRecruitmentApi\Http\Requests\CreateCandidateRequest;
-use Juraboyev\LaravelRecruitmentApi\Http\Resources\CandidateResourceCollection;
-use Juraboyev\LaravelRecruitmentApi\Models\Candidate;
-use Juraboyev\LaravelRecruitmentApi\Models\Province;
-use Juraboyev\LaravelRecruitmentApi\Models\Region;
-use Juraboyev\LaravelRecruitmentApi\Models\Village;
+use Weldon\LaravelRecruitmentApi\Http\Requests\CreateCandidateRequest;
+use Weldon\LaravelRecruitmentApi\Http\Resources\CandidateResourceCollection;
+use Weldon\LaravelRecruitmentApi\Models\Candidate;
+use Weldon\LaravelRecruitmentApi\Models\Province;
+use Weldon\LaravelRecruitmentApi\Models\Region;
+use Weldon\LaravelRecruitmentApi\Models\Village;
 
 class CandidateController
 {
     public function createCandidate(CreateCandidateRequest $request)
     {
-        $candidate = new \Juraboyev\LaravelRecruitmentApi\Candidate\Models\Candidate($request->all());
+        $candidate = new \Weldon\LaravelRecruitmentApi\Candidate\Models\Candidate($request->all());
 
         return $candidate->store();
 
