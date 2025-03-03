@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Juraboyev\LaravelRecruitmentApi\Http\Controllers\CandidateController;
-use Juraboyev\LaravelRecruitmentApi\Http\Controllers\SigInController;
+use Weldon\LaravelRecruitmentApi\Http\Controllers\CandidateController;
+use Weldon\LaravelRecruitmentApi\Http\Controllers\SigInController;
 
 Route::middleware('api')->prefix('api')->group(function () {
     Route::post('recruitment/generate-captcha', [SigInController::class, 'generateCaptcha']);

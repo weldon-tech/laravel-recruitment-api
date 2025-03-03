@@ -1,6 +1,6 @@
 <?php
 
-namespace Juraboyev\LaravelRecruitmentApi\Candidate\Models;
+namespace Weldon\LaravelRecruitmentApi\Candidate\Models;
 
 class AboutFamily
 {

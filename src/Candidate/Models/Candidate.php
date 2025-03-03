@@ -1,19 +1,19 @@
 <?php
 
-namespace Juraboyev\LaravelRecruitmentApi\Candidate\Models;
+namespace Weldon\LaravelRecruitmentApi\Candidate\Models;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Storage;
-use Juraboyev\LaravelRecruitmentApi\Models\CandidateAddress;
-use Juraboyev\LaravelRecruitmentApi\Models\CandidateAdvertisingSource;
-use Juraboyev\LaravelRecruitmentApi\Models\CandidateDetail;
-use Juraboyev\LaravelRecruitmentApi\Models\CandidateEducationDetail;
-use Juraboyev\LaravelRecruitmentApi\Models\CandidateExperience;
-use Juraboyev\LaravelRecruitmentApi\Models\CandidateFamilyMember;
-use Juraboyev\LaravelRecruitmentApi\Models\CandidateLangSkill;
-use Juraboyev\LaravelRecruitmentApi\Models\CandidateOtherSkill;
-use Juraboyev\LaravelRecruitmentApi\Models\CandidateSelectedPosition;
+use Weldon\LaravelRecruitmentApi\Models\CandidateAddress;
+use Weldon\LaravelRecruitmentApi\Models\CandidateAdvertisingSource;
+use Weldon\LaravelRecruitmentApi\Models\CandidateDetail;
+use Weldon\LaravelRecruitmentApi\Models\CandidateEducationDetail;
+use Weldon\LaravelRecruitmentApi\Models\CandidateExperience;
+use Weldon\LaravelRecruitmentApi\Models\CandidateFamilyMember;
+use Weldon\LaravelRecruitmentApi\Models\CandidateLangSkill;
+use Weldon\LaravelRecruitmentApi\Models\CandidateOtherSkill;
+use Weldon\LaravelRecruitmentApi\Models\CandidateSelectedPosition;
 
 class Candidate
 {
@@ -129,7 +129,7 @@ class Candidate
 
         Storage::disk(config('recruitment.storage.disk'))->put($fileName,$image);
 
-        $candidate = \Juraboyev\LaravelRecruitmentApi\Models\Candidate::query()
+        $candidate = \Weldon\LaravelRecruitmentApi\Models\Candidate::query()
             ->create([
                 'first_name' => $this->personal->firstName,
                 'last_name' => $this->personal->lastName,

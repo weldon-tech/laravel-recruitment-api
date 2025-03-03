@@ -1,6 +1,6 @@
 <?php
 
-namespace Juraboyev\LaravelRecruitmentApi;
+namespace Weldon\LaravelRecruitmentApi;
 
 use Illuminate\Support\ServiceProvider;
 
